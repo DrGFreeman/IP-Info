@@ -1,7 +1,7 @@
 from .ipinfo import ipinfo
-from .ipinfo import IpWmia
+from .ipinfo import IpWimia
 
 all = [
     'ipinfo',
-    'IpWmia',
+    'IpWimia',
 ]

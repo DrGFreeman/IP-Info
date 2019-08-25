@@ -1,13 +1,13 @@
 import re
 import requests
 
-def ipinfo(ip, provider='wmia'):
-    if provider == 'wmia':
-        return IpWmia(ip).info
+def ipinfo(ip, provider='wimia'):
+    if provider == 'wimia':
+        return IpWimia(ip).info
     else:
-        raise ValueError('Invalid provider.')
+        raise ValueError(f"{provider} is not a valid provider.")
 
-class IpWmia():
+class IpWimia():
 
     def __init__(self, ip):
         ip_pattern = r'([0-9]{1,3}\.){3}[0-9]{1,3}'

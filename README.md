@@ -26,6 +26,8 @@ Using the `IpWimia` class allows to access the different fields as class attribu
 'M247 L'
 >>> ip.country
 'United Kingdom'
+>>> ip.state_region
+'England'
 >>> ip.city
 'London'
 >>> ip.latitude, ip.longitude

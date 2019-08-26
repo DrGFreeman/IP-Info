@@ -2,6 +2,7 @@ import re
 import requests
 
 def ipinfo(ip, provider='wimia'):
+    """Returns a dictionary of information on the ip address."""
     if provider == 'wimia':
         return IpWimia(ip).info
     else:
@@ -10,6 +11,54 @@ def ipinfo(ip, provider='wimia'):
 class IpWimia():
 
     def __init__(self, ip):
+        """A class to get information on an ip address using
+        whatismyipaddress.com
+        
+        Parameters
+        ----------
+        ip : str
+            The ip address (V4) for which to get the information,
+            e.g. '172.217.13.142'.
+
+        Attributes
+        ----------
+        info : dict
+            A dictionary containing all the information on the ip address.
+        
+        hostname : str
+            The hostname corresponding to the ip address.
+
+        asn : int
+            The ASN number corresponding to the ip address.
+
+        isp : str
+            The ISP (Internet Service Provider) corresponding to the ip
+            address.
+
+        organization : str
+            The organization owning the ip address.
+
+        type : str
+            The type of ip address.
+
+        continent : str
+            The contient of the ip address location.
+
+        country : str
+            The country of the ip address location.
+
+        state_region : str
+            The state, province or region of the ip address location.
+
+        city : str
+            The city of the ip address location.
+
+        latitude : float
+            The latitude of the ip address location.
+
+        longitude : float
+            The longitude of the ip address location.
+        """
         ip_pattern = r'([0-9]{1,3}\.){3}[0-9]{1,3}'
         if re.match(ip_pattern, ip):
             self.ip = ip
@@ -63,7 +112,8 @@ class IpWimia():
             field_match = re.search(field_pattern, line)
             if field_match is not None:
                 if field in ['Latitude:', 'Longitude:']:
-                    value_match = re.search('[\-0-9a-zA-Z\.]+', lines[l_num + 1])
+                    value_match = re.search('[\-0-9a-zA-Z\.]+',
+                                            lines[l_num + 1])
                     return float(value_match[0])
                 if field in ['ASN:']:
                     value_match = re.search('td>[0-9]+', line)

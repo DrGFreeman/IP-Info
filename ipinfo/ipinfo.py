@@ -15,7 +15,7 @@ class IpWimia():
             self.ip = ip
         else:
             raise ValueError(f"{ip} is not a valid IP address.")
-        self.info = self.get_ip_info()
+        self.info = self._get_ip_info()
         self.hostname = self.info.get('Hostname:')
         self.asn = self.info.get('ASN:')
         self.isp = self.info.get('ISP:')
@@ -28,7 +28,7 @@ class IpWimia():
         self.latitude = self.info.get('Latitude:')
         self.longitude = self.info.get('Longitude:')
 
-    def get_ip_info(self):
+    def _get_ip_info(self):
         info = {
             'Hostname:': '',
             'ASN:': '',
@@ -43,21 +43,21 @@ class IpWimia():
             'Longitude:': '',
         }
 
-        lines = self.get_wmia_data()
+        lines = self._get_wimia_data()
         for field in info:
-            info[field] = self.get_field_data(field, lines)
+            info[field] = self._get_field_data(field, lines)
         
         return info
         
 
-    def get_wmia_data(self):
+    def _get_wimia_data(self):
         url = f"https://whatismyipaddress.com/ip/{self.ip}"
         resp = requests.get(url)
         page = resp.content.decode()
         lines = page.split('\n')
         return lines
 
-    def get_field_data(self, field, lines):
+    def _get_field_data(self, field, lines):
         field_pattern = f">{field}"
         for l_num, line in enumerate(lines):
             field_match = re.search(field_pattern, line)

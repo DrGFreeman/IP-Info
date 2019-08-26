@@ -1,12 +1,9 @@
 import re
 import requests
 
-def ipinfo(ip, provider='wimia'):
+def ipinfo(ip):
     """Returns a dictionary of information on the ip address."""
-    if provider == 'wimia':
-        return IpWimia(ip).info
-    else:
-        raise ValueError(f"{provider} is not a valid provider.")
+    return IpWimia(ip).info
 
 class IpWimia():
 

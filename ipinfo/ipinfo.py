@@ -74,7 +74,7 @@ class IpWimia():
                 else:
                     value_match = re.search('td>[\-0-9a-zA-Z \.]+', line)
                 if value_match is not None:
-                    return value_match[0].strip('td>').strip()
+                    return value_match[0].replace('td>', '').strip()
                 else:
                     return ''
         return 'Not available'
